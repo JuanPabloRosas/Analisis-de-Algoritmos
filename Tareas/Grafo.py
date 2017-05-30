@@ -72,8 +72,6 @@ class Grafo:
 		file.close()
 		return lista_ady
 
-		
-	#TAREA 3 - HEURISTICA PARA SAT
 	
 	def CNF(asign, inst):
 		flag = True
@@ -129,8 +127,6 @@ class Grafo:
 	def gen_asign(num_elem):
 		return True	
 
-	#TAREA 4 - RECORRIDOS Y CAMINOS EN GRAFOS
-	#GRAFOS BIPARTITOS CON BFS
 	def bfs(lista_ady, nodo):
 		actual = [nodo]
 		nivel = 0
@@ -145,7 +141,7 @@ class Grafo:
 						siguiente.append(vecino)
 			actual = siguiente
 		return niveles
-	#LABERINTOS CON DFS
+
 	def dfs(self,lista_ady,nodo):
 		return True
 
@@ -296,12 +292,6 @@ class Grafo:
 			i = i + 1
 		
 		return (pred,secuencia,peso)
-			
-	 	
-	
-	#TAREA 6 - RAMIFICACIONES Y BUSQUEDAS PARA OPTIMIZACION
-	#TAREA 7 - ALEATORIZACION
-	#TAREA 8 - EXPERIMENTOS CON TRANSICIONES DE FASE
 
 	#GRAFICAR
 	def graficar(self,lista_ady):

@@ -1,0 +1,11 @@
+#CNF
+n !r j
+w !n h
+y l p
+o a !e
+j !d l
+!o w i
+j g !d
+!l h e
+v p !z
+a w !o

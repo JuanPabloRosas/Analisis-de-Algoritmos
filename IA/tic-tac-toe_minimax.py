@@ -2,47 +2,44 @@ import random
 
 computadora, oponente = 'x', 'o'
 
+"""
+Para saber si aún nos quedan movimientos por hacer
+
+Deuelve (Booleano):
+True : Si aún quedán espacios en blanco
+False: Si ya está todo lleno
+"""
 def movimientos(tablero) :
 	for i in range(3) :
 		for j in range(3) :
 			if (tablero[i][j] == '_') :
 				return True
 	return False
+
 """
-def f_valor(t) :
-	# Renglones
-	for renglon in range(3) :	
-		if (t[renglon][0] == t[renglon][1] and t[renglon][1] == t[renglon][2]) :	
-			if (t[renglon][0] == jugador) :
-				# Puntos ganados por victoria del jugador
-				return 10
-			elif (t[renglon][0] == oponente) :
-				# Puntos perdidos por victoria del jugador
-				return -10
+Es la función que asigna el valor a cada uno de los estados del tablero
 
-	# Victorias por columna
-	for col in range(3) :
-		if (t[0][col] == t[1][col] and t[1][col] == t[2][col]) :
-			if (t[0][col] == jugador) :
-				return 10
-			elif (t[0][col] == oponente) :
-				return -10
+Devuelve (Entero):
+La diferencia de las posibilidades de ganar de la computadora menos las
+posibilidades de ganar del jugador. Las posibilidades se obtienen verificando
+en que renglon, columna o diagonal puede generar una jugada ganadora en un futuro, es decir
+si tenemos el siguiente tablero:
+x.- Computadora
+o.- Jugador
 
-	# Victorias diagonal
-	if (t[0][0] == t[1][1] and t[1][1] == t[2][2]) :
-		if (t[0][0] == jugador) :
-			return 10
-		elif (t[0][0] == oponente) :
-			return -10
+_  o  _
+x  _  _
+_  _  _
+La comptadora tendría 6 posibilidades de ganar, si agregara las demás 'x' correspondientes.
+_  o  _		x  o  _		x  o  _		_  o  x		_  o  _		_  o  x      
+x  x  x		x  _  _		x  x  _		x  x  _		x  _  _		x  _  x
+_  _  _		x  _  _		_  _  x		x  _  _		x  x  x		_  _  x
+El jugador tendría de igual manera 6 posibilidades de ganar
+o  o  o		_  o  _		_  o  _		_  o  o		_  o  o		o  o  _      
+x  _  _		x  _  _		x  o  _		x  _  o		x  o  _		x  o  _
+_  _  _		o  o  o		_  o  _		_  _  o		o  _  _		_  _  o
+Por lo que el valor de ese estado sería 6 - 6 = 0
 
-	if (t[0][2] == t[1][1] and t[1][1] == t[2][0]) :
-		if (t[0][2] == jugador) :
-			return 10
-		elif (t[0][2] == oponente) :
-			return -10
-
-	# Si nadie ha gando
-	return 0
 """
 def f_valor(t):
 	j = 0
@@ -124,6 +121,14 @@ def f_valor(t):
 
 	return(j-o)
 
+
+"""
+Funciona recursivamente suponiendo cuál será la jugada del contrincante, de acuerdo a una función de valor f_valor()
+maximizando las posibilidades de ganar y minimizando las posibilidades del contrincante.
+
+Devuelve (Entero)
+El valor del mejor estado encontrado.
+"""
 def minimax(tablero, profundidad, Max):
 	# Es el turno de la computadora
 	if (Max) :
@@ -148,6 +153,15 @@ def minimax(tablero, profundidad, Max):
 					tablero[i][j] = '_'
 	return best
 
+"""
+Identifica si alguien quién es el ganador , si contuamos jugando o si empatamos.
+
+Devuelve (Entero):
+0 .- si gana la computadora
+1 .- si gana el jugador
+2 .- si hubo un empate
+-1.- si aún no se termina el juego
+"""
 def ganador(tablero):
 	for renglon in range(3) :
 		if(tablero[renglon][0] == 'x' and tablero[renglon][1] == 'x' and tablero[renglon][2] == 'x'):
@@ -177,6 +191,17 @@ def ganador(tablero):
 
 	return -1
 
+"""
+Función principal. Realiza el mejor movimiento encontrado por de la computadora con un algoritmo minimax
+y espera a que el jugador realice su jugada. De esta forma iterativamente hasta que haya un ganador o 
+se empate el juego
+
+Devuelve (Entero):
+0 .- si gana la computadora
+1 .- si gana el jugador
+2 .- si hubo un empate
+-1.- si aún no se termina el juego
+"""
 def mejorMovimiento(tablero) :
 	if(any('x' in t for t in tablero)):
 		bestVal = -1000

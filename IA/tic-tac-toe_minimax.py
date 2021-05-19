@@ -3,20 +3,6 @@ import random
 computadora, oponente = 'x', 'o'
 
 """
-Para saber si aún nos quedan movimientos por hacer
-
-Deuelve (Booleano):
-True : Si aún quedán espacios en blanco
-False: Si ya está todo lleno
-"""
-def movimientos(tablero) :
-	for i in range(3) :
-		for j in range(3) :
-			if (tablero[i][j] == '_') :
-				return True
-	return False
-
-"""
 Es la función que asigna el valor a cada uno de los estados del tablero
 
 Devuelve (Entero):
@@ -130,6 +116,10 @@ Devuelve (Entero)
 El valor del mejor estado encontrado.
 """
 def minimax(tablero, profundidad, Max):
+	g = ganador(tablero)
+	if((g == 0) or (g == 1)):
+		return(f_valor(tablero))
+
 	# Es el turno de la computadora
 	if (Max) :
 		best = -100000
@@ -210,7 +200,7 @@ def mejorMovimiento(tablero) :
 			for j in range(3):
 				if (tablero[i][j] == '_'):
 					tablero[i][j] = computadora
-					movVal = minimax(tablero, 0, True)
+					movVal = minimax(tablero, 0, False)
 					tablero[i][j] = '_'
 					if (movVal > bestVal):			
 						bestMov = (i, j)
